@@ -3,6 +3,13 @@ const createElements = (arr) => {
     return htmlElements.join(" ");
 }
 
+
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 const manageSpinner = (status) => {
     if(status ===true){
         document.getElementById("spinner").classList.remove('hidden');
@@ -97,7 +104,7 @@ const displayLevelWord = (words) =>{
             <div class="font-medium font-bangla text-2xl">"${word.meaning ? word.meaning : "Meaning Not Found"} / ${word.pronunciation ? word.pronunciation : "Pronunciation Not Found"}"</div>
             <div class="flex justify-between items-center">
                 <button onclick="loadWordDetail(${word.id})" class="btn bg-blue-50 hover:bg-blue-200"><i class="fa-solid fa-circle-info"></i></button>
-                <button class="btn bg-blue-50 hover:bg-blue-200"><i class="fa-solid fa-volume-high"></i></button>
+                <button onclick="pronounceWord('${word.word}')" class="btn bg-blue-50 hover:bg-blue-200"><i class="fa-solid fa-volume-high"></i></button>
             </div>
         `;
     wordContainer.appendChild(card);
